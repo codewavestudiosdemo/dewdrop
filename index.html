@@ -1,3 +1,4 @@
+<!-- TYPE html -->
 <!DOCTYPE html>
 <html lang="en-IN">
 <head>
@@ -158,25 +159,37 @@
         .srv-points li::before { content: "—"; color: var(--gold-solid); }
         .srv-click { font-family: var(--font-royal); font-size: 0.8rem; letter-spacing: 4px; color: var(--gold-solid); cursor: pointer; border-bottom: 1px solid transparent; padding-bottom: 5px; transition: 0.4s; }
 
-        /* --- BABY --- */
-        .baby-grid { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 40px; }
-        .baby-card { width: 280px; height: 380px; border: 1px solid #1a1a1a; padding: 10px; }
-        .baby-card img { width: 100%; height: 100%; object-fit: cover; }
-        .baby-desc { font-size: clamp(1.2rem, 3vw, 1.6rem) !important; font-weight: 300; line-height: 1.4; color: #bbb !important; max-width: 800px; margin: 20px auto 40px; font-family: var(--font-serif); }
+        /* --- BABY & MATERNITY --- */
+        .baby-grid { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; margin-top: 40px; }
+        .baby-card { 
+            width: 280px; position: relative; padding: 10px; border: 1px solid #1a1a1a; 
+            transition: 0.5s ease;
+        }
+        .baby-card:hover { transform: translateY(-10px); border-color: var(--gold-solid); }
+        .baby-card img { width: 100%; height: 380px; object-fit: cover; filter: grayscale(20%); }
+        .baby-caption {
+            margin-top: 15px; font-family: var(--font-royal); color: var(--gold-soft);
+            font-size: 0.9rem; letter-spacing: 2px;
+        }
+        .baby-desc { font-size: clamp(1.2rem, 3vw, 1.6rem) !important; font-weight: 300; line-height: 1.4; color: #bbb !important; max-width: 800px; margin: 20px auto 50px; font-family: var(--font-serif); }
 
         /* --- VIRAL --- */
         .viral-sec { padding: 100px 5%; background: #000; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 60px; border-bottom: 1px solid #111; }
-        .viral-vis { flex: 1; max-width: 400px; height: 600px; position: relative; border: 1px solid #333; overflow: hidden; }
+        .viral-vis { flex: 1; max-width: 400px; height: 650px; position: relative; border: 1px solid #333; overflow: hidden; border-radius: 4px; }
         .viral-vis iframe { width: 100%; height: 100%; border: none; object-fit: cover; }
         .viral-txt { flex: 1.2; min-width: 300px; }
         .stat-row { display: flex; gap: 40px; margin: 40px 0; border-top: 1px solid #222; border-bottom: 1px solid #222; padding: 30px 0; }
         .stat-box h3 { font-size: 3rem; color: var(--gold-solid); font-family: var(--font-royal); line-height: 1; }
         .stat-box span { font-family: var(--font-sans); font-size: 0.8rem; letter-spacing: 3px; color: #666; display: block; margin-top: 10px; }
 
+        /* --- YOUTUBE GRID (DESKTOP) --- */
+        .yt-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 60px; }
+
         /* --- GALLERY --- */
         .masonry { column-count: 3; column-gap: 20px; padding: 0 5% 150px; }
-        .g-item { break-inside: avoid; margin-bottom: 20px; }
+        .g-item { break-inside: avoid; margin-bottom: 20px; position: relative; }
         .g-item img { width: 100%; filter: grayscale(20%); transition: 0.8s; }
+        .g-item:hover img { filter: grayscale(0%); transform: scale(1.02); }
 
         /* --- FAQ SECTION --- */
         .faq-sec { 
@@ -225,19 +238,53 @@
             .srv-vis { width: 100%; height: 350px; flex: none; }
             .srv-txt { width: 100%; padding: 30px 20px; flex: none; background: transparent; margin-top: 0; }
             
-            .viral-sec { padding: 60px 5%; text-align: center; gap: 30px; }
-            .viral-vis { height: 500px; width: 100%; }
+            /* --- FIXED VIRAL/REEL SQUEEZE --- */
+            .viral-sec { padding: 60px 5%; text-align: center; gap: 40px; }
+            .viral-vis { 
+                width: 100%; 
+                max-width: 320px; /* Limits width to typical phone size */
+                aspect-ratio: 9/16; 
+                height: auto; /* Lets aspect ratio control height */
+                margin: 0 auto; 
+            }
             .stat-row { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 20px; }
 
+            /* --- FIXED BABY SECTION & SLIDER --- */
             .baby-sec { padding: 80px 0 !important; overflow: hidden; }
-            .baby-grid { display: flex; flex-wrap: nowrap; overflow-x: auto; scroll-snap-type: x mandatory; justify-content: flex-start; gap: 15px; padding: 0 20px 40px; }
-            .baby-card { flex: 0 0 80vw; height: 400px; scroll-snap-align: center; border: 1px solid #222; }
+            .baby-grid { 
+                display: flex; flex-wrap: nowrap; overflow-x: auto; scroll-snap-type: x mandatory; 
+                justify-content: flex-start; gap: 15px; padding: 0 20px 40px; 
+            }
+            .baby-card { flex: 0 0 75vw; height: auto; scroll-snap-align: center; border: 1px solid #222; padding-bottom: 20px; }
+            .baby-card img { height: 350px; }
             .baby-desc { padding: 0 20px; }
+
+            /* --- YOUTUBE SLIDER ON MOBILE --- */
+            .yt-grid { 
+                display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 15px; padding-bottom: 20px; 
+                margin-top: 30px; padding-left: 20px; padding-right: 20px;
+            }
+            .yt-item { flex: 0 0 85vw; scroll-snap-align: center; border: 1px solid #222; background: #080808; }
             
-            .masonry { column-count: 2; column-gap: 10px; padding: 0 10px 100px; }
+            /* --- BEAUTIFUL MIXED GALLERY LAYOUT --- */
+            .masonry { 
+                column-count: unset; /* Disable masonry columns */
+                display: grid;
+                grid-template-columns: 1fr 1fr; /* 2 columns base */
+                gap: 10px;
+                padding: 0 10px 100px;
+            }
+            .g-item { margin-bottom: 0; }
+            .g-item img { height: 100%; object-fit: cover; aspect-ratio: 3/4; }
+            
+            /* The Rhythm: 1 Big, 2 Small, 1 Big, 2 Small... */
+            /* Every 3rd item spans full width to break monotony */
+            .g-item:nth-child(3n+1) { 
+                grid-column: span 2; 
+                aspect-ratio: 16/9; /* Cinematic ratio for hero shots */
+            }
+
             .f-links { grid-template-columns: 1fr 1fr; gap: 40px 20px; }
-            
-            /* FAQ Mobile */
             .faq-sec { padding: 80px 5%; }
             .faq-q { font-size: 0.8rem; }
         }
@@ -262,11 +309,12 @@
 
     <!-- HERO -->
     <section class="hero">
-        <div class="hero-bg active" style="background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2000&q=80');"></div>
+        <div class="hero-bg active" style="background-image: url('https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=2000&q=80');"></div>
 
-<div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=2000&q=80');"></div>
+<div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1618230380021-1e4ccef2525f?auto=format&fit=crop&w=2000&q=80');"></div>
 
-<div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=2000&q=80');"></div>
+<div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1521103723409-0e665b0dc90b?auto=format&fit=crop&w=2000&q=80');"></div>
+
 
         <div class="hero-content">
             <h1 class="hero-title" data-aos="fade-up">Capturing the <span class="gold-text">Poetry</span><br>of Your Life</h1>
@@ -320,7 +368,7 @@
         </div>
     </section>
 
-    <!-- VIRAL -->
+    <!-- VIRAL (FIXED MOBILE SQUEEZE) -->
     <section class="viral-sec">
         <div class="viral-vis" data-aos="fade-right">
             <iframe src="https://www.instagram.com/p/C0OJlmZvZ0N/embed/" scrolling="no" allowtransparency="true" allow="encrypted-media"></iframe>
@@ -339,11 +387,10 @@
         </div>
     </section>
 
-    <!-- SERVICES (Updated Heading) -->
+    <!-- SERVICES -->
     <section id="services">
         <div style="text-align:center; padding:100px 0 50px; background:#030303;">
             <h4 class="gold-text">ESTHÉTIQUE</h4>
-            <!-- CHANGED HEADER HERE -->
             <h2 style="font-size:clamp(2.5rem, 6vw, 3.5rem);">Bespoke Services</h2>
             <p style="color:#666; font-size:0.8rem; letter-spacing:2px; margin-top:10px;" class="serif">SWIPE TO EXPLORE &rarr;</p>
         </div>
@@ -358,15 +405,24 @@
         </div>
     </section>
 
-    <!-- BABY -->
+    <!-- BABY (WITH BEAUTIFUL CAPTIONS) -->
     <section class="baby-sec" style="padding:150px 8%; background:#050505; text-align:center;">
         <h4 class="gold-text">CUDDLES BY DEWDROP</h4>
         <h2 style="font-size:clamp(2rem, 6vw, 3rem); margin-top:10px;">The Little Wonders</h2>
-        <p class="baby-desc">A specialized boutique division for Kids, Newborn, and Maternity portraits. <br> Blending safety with high-end luxury aesthetics.</p>
+        <p class="baby-desc">A specialized boutique division for Kids, Newborn, and Maternity portraits. <br> Capturing the purest forms of love.</p>
         <div class="baby-grid">
-            <div class="baby-card"><img src="https://lh3.googleusercontent.com/d/1LAMF5ZyhCofj8be4FWbqcqOQlfFZ8rIR"></div>
-            <div class="baby-card"><img src="https://lh3.googleusercontent.com/d/1SDStwBjvFau1URGGrXtZD0plKm5r4J3B"></div>
-            <div class="baby-card"><img src="https://lh3.googleusercontent.com/d/1_hZZLkUlnZVw0hoxwYBjfLA_5hT7E9gv"></div>
+            <div class="baby-card">
+                <img src="https://lh3.googleusercontent.com/d/1LAMF5ZyhCofj8be4FWbqcqOQlfFZ8rIR">
+                <div class="baby-caption">THE PLAYFUL SOUL</div>
+            </div>
+            <div class="baby-card">
+                <img src="https://lh3.googleusercontent.com/d/1SDStwBjvFau1URGGrXtZD0plKm5r4J3B">
+                <div class="baby-caption">THE FIRST BREATH</div>
+            </div>
+            <div class="baby-card">
+                <img src="https://lh3.googleusercontent.com/d/1_hZZLkUlnZVw0hoxwYBjfLA_5hT7E9gv">
+                <div class="baby-caption">THE BLOOM OF LIFE</div>
+            </div>
         </div>
         <a href="https://instagram.com/cuddles.thedewdropproject" target="_blank" class="premium-btn" style="margin-top:60px;"><i class="fab fa-instagram"></i> VISIT CUDDLES</a>
     </section>
@@ -383,18 +439,18 @@
     </section>
     <style>@keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }</style>
 
-    <!-- YOUTUBE -->
+    <!-- YOUTUBE (SLIDER ON MOBILE) -->
     <section class="yt-sec" id="films" style="padding:100px 5%; background:#000; text-align:center;">
         <h2 style="font-size:3rem;" class="gold-text">Cinematic Legacy</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 60px;">
-            <div style="background:#050505; border:1px solid #111; padding-bottom:25px;"><div style="position:relative; padding-bottom:56.25%; height:0; margin-bottom:20px;"><iframe id="ytplayer1" src="https://www.youtube.com/embed/b3Gt0OAfb9A?enablejsapi=1" style="position:absolute; inset:0; width:100%; height:100%; border:none;"></iframe></div><h4 class="cinzel">Shivangi & Ashwani</h4></div>
-            <div style="background:#050505; border:1px solid #111; padding-bottom:25px;"><div style="position:relative; padding-bottom:56.25%; height:0; margin-bottom:20px;"><iframe id="ytplayer2" src="https://www.youtube.com/embed/p6eKeoHamgk?enablejsapi=1" style="position:absolute; inset:0; width:100%; height:100%; border:none;"></iframe></div><h4 class="cinzel">Shubhii & Satyam</h4></div>
-            <div style="background:#050505; border:1px solid #111; padding-bottom:25px;"><div style="position:relative; padding-bottom:56.25%; height:0; margin-bottom:20px;"><iframe id="ytplayer3" src="https://www.youtube.com/embed/VmUj0Ib5u_8?enablejsapi=1" style="position:absolute; inset:0; width:100%; height:100%; border:none;"></iframe></div><h4 class="cinzel">Nehamt & Kunal</h4></div>
+        <div class="yt-grid">
+            <div class="yt-item" style="padding-bottom:25px;"><div style="position:relative; padding-bottom:56.25%; height:0; margin-bottom:20px;"><iframe id="ytplayer1" src="https://www.youtube.com/embed/b3Gt0OAfb9A?enablejsapi=1" style="position:absolute; inset:0; width:100%; height:100%; border:none;"></iframe></div><h4 class="cinzel" style="padding:0 10px; color:#ddd;">Shivangi & Ashwani</h4></div>
+            <div class="yt-item" style="padding-bottom:25px;"><div style="position:relative; padding-bottom:56.25%; height:0; margin-bottom:20px;"><iframe id="ytplayer2" src="https://www.youtube.com/embed/p6eKeoHamgk?enablejsapi=1" style="position:absolute; inset:0; width:100%; height:100%; border:none;"></iframe></div><h4 class="cinzel" style="padding:0 10px; color:#ddd;">Shubhii & Satyam</h4></div>
+            <div class="yt-item" style="padding-bottom:25px;"><div style="position:relative; padding-bottom:56.25%; height:0; margin-bottom:20px;"><iframe id="ytplayer3" src="https://www.youtube.com/embed/VmUj0Ib5u_8?enablejsapi=1" style="position:absolute; inset:0; width:100%; height:100%; border:none;"></iframe></div><h4 class="cinzel" style="padding:0 10px; color:#ddd;">Nehamt & Kunal</h4></div>
         </div>
         <a href="https://youtube.com/@thedewdropproject" target="_blank" class="premium-btn" style="margin-top:40px;">WATCH MORE ON YOUTUBE <i class="fab fa-youtube"></i></a>
     </section>
 
-    <!-- GALLERY (THE COLLECTION) -->
+    <!-- GALLERY (RHYTHMIC GRID ON MOBILE) -->
     <div style="text-align:center; padding:120px 0 50px; background:#000;">
         <h4 class="gold-text">PORTFOLIO</h4>
         <h2 style="font-size:clamp(2.5rem,5vw,3.5rem);">The Collection</h2>
