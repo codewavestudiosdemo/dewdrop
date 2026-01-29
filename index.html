@@ -55,39 +55,70 @@
         }
         @keyframes shine { to { background-position: 200% center; } }
 
-        /* --- MAGIC INTRO (CINEMATIC SPLIT) --- */
-        #magic-intro {
+        /* --- LUXURY MAGIC INTRO (NEW) --- */
+        #luxury-intro {
             position: fixed; inset: 0; z-index: 10000;
             display: flex; align-items: center; justify-content: center;
-            pointer-events: none;
+            overflow: hidden;
+            pointer-events: none; /* Allows clicks to pass through after it fades */
         }
-        .shutter-top, .shutter-bottom {
-            position: absolute; left: 0; width: 100%; height: 50%;
-            background: #000; z-index: 1;
-            transition: transform 1.2s cubic-bezier(0.8, 0, 0.2, 1);
-        }
-        .shutter-top { top: 0; transform-origin: top; border-bottom: 1px solid #1a1a1a; }
-        .shutter-bottom { bottom: 0; transform-origin: bottom; border-top: 1px solid #1a1a1a; }
-        .intro-content { position: relative; z-index: 10; text-align: center; overflow: hidden; padding: 20px; }
-        .gold-line {
-            width: 0; height: 2px; background: var(--gold-grad); margin: 0 auto;
-            animation: lineExpand 1s cubic-bezier(0.7, 0, 0.3, 1) forwards;
-        }
-        .t-upper, .t-lower {
-            font-family: var(--font-royal); font-size: clamp(2rem, 6vw, 5rem);
-            color: transparent; background: var(--gold-grad); -webkit-background-clip: text;
-            letter-spacing: 5px; margin: 0; line-height: 1; position: relative; opacity: 0;
-        }
-        .t-upper { transform: translateY(100%); animation: textRevealUp 1s cubic-bezier(0.2, 1, 0.3, 1) 0.8s forwards; padding-bottom: 10px; }
-        .t-lower { transform: translateY(-100%); animation: textRevealDown 1s cubic-bezier(0.2, 1, 0.3, 1) 0.8s forwards; padding-top: 10px; }
-        
-        @keyframes lineExpand { 0% { width: 0; opacity: 0; } 100% { width: 300px; opacity: 1; } }
-        @keyframes textRevealUp { 0% { transform: translateY(100%); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
-        @keyframes textRevealDown { 0% { transform: translateY(-100%); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
 
-        body.loaded .shutter-top { transform: translateY(-100%); }
-        body.loaded .shutter-bottom { transform: translateY(100%); }
-        body.loaded .intro-content { opacity: 0; transition: 0.5s; transform: scale(1.1); }
+        /* Background: Rich Deep Gradient */
+        .intro-bg {
+            position: absolute; inset: 0;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
+            z-index: 1; transition: opacity 1.5s ease-out;
+        }
+
+        .intro-content {
+            position: relative; z-index: 10; text-align: center;
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        /* The Magic Text Effect */
+        .lux-title {
+            font-family: var(--font-royal); 
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 400; letter-spacing: 0.2em; margin: 0;
+            
+            /* Gold Texture */
+            color: transparent; background: var(--gold-grad);
+            -webkit-background-clip: text; background-clip: text;
+            background-size: 200%;
+            
+            /* Animation Start State */
+            opacity: 0; filter: blur(30px); transform: scale(0.9);
+            animation: magicReveal 2.5s cubic-bezier(0.2, 1, 0.3, 1) forwards, 
+                       goldShimmer 3s linear infinite;
+        }
+
+        .lux-subtitle {
+            font-family: var(--font-sans); font-size: clamp(0.8rem, 2vw, 1rem);
+            letter-spacing: 0.8em; color: var(--gold-solid); margin-top: 20px;
+            text-transform: uppercase; opacity: 0; transform: translateY(20px);
+            animation: slideUpElegant 2s ease-out 0.5s forwards;
+        }
+
+        /* Animations */
+        @keyframes magicReveal {
+            0% { opacity: 0; filter: blur(30px); transform: scale(0.9); }
+            100% { opacity: 1; filter: blur(0px); transform: scale(1); }
+        }
+        @keyframes goldShimmer {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        @keyframes slideUpElegant {
+            0% { opacity: 0; transform: translateY(20px); letter-spacing: 1.5em; }
+            100% { opacity: 1; transform: translateY(0); letter-spacing: 0.8em; }
+        }
+
+        /* Exit Animation (When loaded) */
+        body.loaded .intro-bg { opacity: 0; }
+        body.loaded .intro-content { 
+            opacity: 0; transform: scale(1.1); filter: blur(10px); 
+            transition: all 1s ease-in-out; 
+        }
 
         /* --- NAVIGATION --- */
         nav { position: fixed; top: 0; width: 100%; padding: 30px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 999; mix-blend-mode: difference; }
@@ -208,16 +239,12 @@
 </head>
 <body>
 
-    <!-- MAGIC INTRO -->
-    <div id="magic-intro">
-        <div class="shutter-top"></div>
-        <div class="shutter-bottom"></div>
+   <!-- LUXURY MAGIC INTRO -->
+    <div id="luxury-intro">
+        <div class="intro-bg"></div>
         <div class="intro-content">
-            <div class="gold-line"></div>
-            <div class="text-container">
-                <h1 class="t-upper">THE DEWDROP</h1>
-                <h1 class="t-lower">PROJECT</h1>
-            </div>
+            <h1 class="lux-title">THE DEWDROP</h1>
+            <span class="lux-subtitle">PROJECT</span>
         </div>
     </div>
 
