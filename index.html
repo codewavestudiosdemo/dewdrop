@@ -21,6 +21,7 @@
             --font-royal: 'Cinzel', serif;
             --font-serif: 'Cormorant Garamond', serif;
             --font-sans: 'Montserrat', sans-serif;
+            --soft-gold: #E0D5B7; /* New soft tone */
         }
 
         /* --- BASE --- */
@@ -28,16 +29,19 @@
         html { scroll-behavior: smooth; }
         body { background-color: var(--bg); color: var(--text-main); font-family: var(--font-sans); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
 
-        /* NOISE TEXTURE */
+        /* NOISE TEXTURE - FIXED FOR MOBILE */
         body::after {
             content: ""; position: fixed; inset: 0; 
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
             pointer-events: none; z-index: 9999;
+            transform: translateZ(0); /* Force GPU on mobile */
+            mix-blend-mode: overlay;
         }
 
         h1, h2, h3, h4, .cinzel { font-family: var(--font-royal); text-transform: uppercase; font-weight: 400; letter-spacing: 3px; }
         p.serif { font-family: var(--font-serif); font-size: 1.3rem; line-height: 1.6; color: var(--text-muted); }
         a { text-decoration: none; color: inherit; transition: 0.4s; }
+        img { max-width: 100%; display: block; } /* Generic image fix */
 
         .gold-text {
             background: var(--gold-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
@@ -45,54 +49,64 @@
         }
         @keyframes shine { to { background-position: 200% center; } }
 
-        /* --- MAGIC INTRO --- */
+        /* --- MAGIC INTRO (Optimized for 2s) --- */
         #luxury-intro {
             position: fixed; inset: 0; z-index: 10000;
             display: flex; align-items: center; justify-content: center;
-            background: #000; transition: 1.5s cubic-bezier(0.9, 0, 0.1, 1);
+            background: #000; transition: 0.8s cubic-bezier(0.9, 0, 0.1, 1);
         }
         .intro-bg { position: absolute; inset: 0; background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%); }
-        .intro-content { position: relative; z-index: 10; text-align: center; }
+        .intro-content { position: relative; z-index: 10; text-align: center; width: 90%; }
         .lux-title {
             font-family: var(--font-royal); font-size: clamp(2.5rem, 12vw, 7rem);
             color: transparent; background: var(--gold-grad); -webkit-background-clip: text;
             background-size: 200%; letter-spacing: 0.4em;
             opacity: 0; filter: blur(40px); transform: scale(0.8);
-            animation: magicReveal 2.8s cubic-bezier(0.2, 1, 0.3, 1) forwards, goldShimmer 4s linear infinite;
+            /* Speed up animation to fit 2s window */
+            animation: magicReveal 1.5s cubic-bezier(0.2, 1, 0.3, 1) forwards, goldShimmer 4s linear infinite;
         }
+        
+        /* UPDATED SERVING TEXT STYLE */
         .serving-text {
-            font-family: var(--font-serif); font-style: italic; font-size: clamp(0.9rem, 2vw, 1.2rem);
-            color: var(--gold-solid); margin-top: 30px; letter-spacing: 8px; opacity: 0;
-            animation: fadeIn 1.5s ease-out 1.2s forwards;
+            font-family: var(--font-royal); /* Changed to Luxury Font */
+            font-size: clamp(0.8rem, 3vw, 1rem);
+            color: var(--soft-gold); /* Soft Elegant Tone */
+            margin-top: 20px; letter-spacing: 6px; opacity: 0;
+            font-weight: 400;
+            animation: fadeIn 0.8s ease-out 0.8s forwards; /* Faster timing */
         }
+
         @keyframes magicReveal { to { opacity: 1; filter: blur(0px); transform: scale(1); } }
         @keyframes goldShimmer { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
         @keyframes fadeIn { to { opacity: 1; } }
-        body.loaded #luxury-intro { opacity: 0; visibility: hidden; transform: translateY(-100%); }
+        body.loaded #luxury-intro { opacity: 0; visibility: hidden; transform: translateY(-100%); pointer-events: none; }
 
         /* --- NAV --- */
         nav { position: fixed; top: 0; width: 100%; padding: 40px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 999; mix-blend-mode: difference; }
         .logo { font-family: var(--font-royal); font-weight: 700; font-size: 1.8rem; letter-spacing: 8px; color: #fff; }
-        .nav-btn { font-family: var(--font-royal); font-size: 0.75rem; letter-spacing: 3px; color: #fff; border: 1px solid var(--gold-solid); padding: 12px 30px; cursor: pointer; transition: 0.5s; }
+        .nav-btn { font-family: var(--font-royal); font-size: 0.75rem; letter-spacing: 3px; color: #fff; border: 1px solid var(--gold-solid); padding: 12px 30px; cursor: pointer; transition: 0.5s; white-space: nowrap; }
         .nav-btn:hover { background: var(--gold-solid); color: #000; }
 
         /* --- HERO --- */
         .hero { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .hero-bg { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: 2.5s; transform: scale(1.1); }
+        .hero-bg { 
+            position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: 2.5s; transform: scale(1.1); 
+            will-change: transform, opacity;
+        }
         .hero-bg.active { opacity: 0.5; transform: scale(1); }
-        .hero-content { position: relative; z-index: 10; text-align: center; }
-        .hero-title { font-family: var(--font-serif); font-size: clamp(3.5rem, 14vw, 8rem); line-height: 1; margin-bottom: 50px; font-style: italic; }
+        .hero-content { position: relative; z-index: 10; text-align: center; padding: 0 20px; }
+        .hero-title { font-family: var(--font-serif); font-size: clamp(3rem, 12vw, 8rem); line-height: 1; margin-bottom: 50px; font-style: italic; }
 
         /* --- DIRECTOR --- */
         .director-sec { padding: 120px 10%; display: flex; align-items: center; justify-content: center; gap: 80px; flex-wrap: wrap; background: #080808; }
         .dir-img-box { flex: 1; max-width: 380px; border: 1px solid #1a1a1a; padding: 15px; }
         .dir-img-box img { width: 100%; filter: grayscale(100%); transition: 0.7s; }
-        .dir-content { flex: 1.5; min-width: 350px; }
+        .dir-content { flex: 1.5; min-width: 300px; }
 
         /* --- SERVICES --- */
         .service-row { display: flex; min-height: 80vh; border-bottom: 1px solid #111; flex-wrap: wrap; background: #030303; }
         .service-row:nth-child(even) { flex-direction: row-reverse; }
-        .srv-vis { flex: 1; min-width: 50%; height: 80vh; overflow: hidden; }
+        .srv-vis { flex: 1; min-width: 50%; height: 80vh; overflow: hidden; position: relative; }
         .srv-vis img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.5); transition: 1.5s; }
         .srv-txt { flex: 1; min-width: 50%; padding: 80px 10%; display: flex; flex-direction: column; justify-content: center; }
         .srv-points { list-style: none; margin: 25px 0; }
@@ -113,6 +127,26 @@
         .yt-item { background: #050505; border: 1px solid #111; padding-bottom: 25px; }
         .yt-wrap { position: relative; padding-bottom: 56.25%; height: 0; margin-bottom: 20px; }
         .yt-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+        
+        /* CTA BUTTON TEASER */
+        .yt-cta-btn {
+            display: inline-flex; align-items: center; gap: 10px;
+            font-family: var(--font-royal); font-size: 0.9rem; color: #fff;
+            margin-top: 50px; padding: 10px 0;
+            border-bottom: 1px solid var(--gold-solid);
+            transition: 0.4s; letter-spacing: 2px;
+        }
+        .yt-cta-btn:hover { letter-spacing: 4px; color: var(--gold-solid); }
+
+        /* --- BABY SECTION GRID FIX --- */
+        .baby-grid {
+            display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 40px;
+        }
+        .baby-card {
+            width: 280px; height: 380px;
+            border: 1px solid #1a1a1a; padding: 10px;
+        }
+        .baby-card img { width: 100%; height: 100%; object-fit: cover; }
 
         /* --- THE JOURNEY (STEPS) --- */
         .journey-sec { padding: 150px 10%; background: #030303; }
@@ -129,8 +163,17 @@
         .faq-item.active .faq-a { max-height: 300px; padding-top: 30px; }
 
         /* --- FOOTER --- */
-        footer { background: #000; padding: 180px 8% 60px; border-top: 1px solid #111; text-align: center; }
-        .f-massive { font-family: var(--font-royal); font-size: clamp(5rem, 22vw, 20rem); color: #0a0a0a; line-height: 0.7; font-weight: 900; margin-bottom: 120px; pointer-events: none; }
+        footer { background: #000; padding: 100px 8% 60px; border-top: 1px solid #111; text-align: center; overflow: hidden; }
+        
+        /* FOOTER DEWDROP FIX */
+        .f-massive { 
+            font-family: var(--font-royal); 
+            font-size: clamp(3rem, 16vw, 12rem); /* Clamped tightly */
+            color: #0a0a0a; line-height: 1; font-weight: 900; 
+            margin-bottom: 80px; pointer-events: none;
+            width: 100%; word-break: break-word; /* Prevent overflow */
+        }
+        
         .f-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 60px; text-align: left; border-top: 1px solid #111; padding-top: 80px; }
         .f-col h4 { color: var(--gold-solid); font-size: 0.8rem; margin-bottom: 30px; border-bottom: 1px solid rgba(197,160,89,0.1); padding-bottom: 10px; display: inline-block; }
         .f-col a { font-family: var(--font-serif); color: #555; display: block; margin-bottom: 15px; font-size: 1.1rem; }
@@ -141,12 +184,39 @@
         .g-item { break-inside: avoid; margin-bottom: 20px; }
         .g-item img { width: 100%; filter: grayscale(40%); transition: 0.8s; }
 
+        /* --- MOBILE RESPONSIVENESS FIXES --- */
         @media (max-width: 768px) {
-            .srv-txt { padding: 40px 20px; text-align: center; }
-            .srv-vis { height: 450px; }
-            .masonry { column-count: 2; }
-            .f-massive { font-size: 8rem; }
+            nav { padding: 30px 5%; }
+            .hero-title { margin-bottom: 30px; }
+            
+            /* Stacking Services naturally */
+            .service-row { display: block; height: auto; min-height: auto; }
+            .srv-vis { width: 100%; height: 350px; min-width: 100%; } /* Breathable image height */
+            .srv-txt { width: 100%; padding: 60px 20px; text-align: center; }
+            
+            /* Director Section */
+            .director-sec { gap: 40px; padding: 80px 5%; text-align: center; }
+            .dir-img-box { max-width: 100%; width: 100%; }
+            .dir-content { width: 100%; }
+            
+            /* Baby Section */
+            .baby-sec { padding: 80px 5%; }
+            .baby-grid { display: flex; flex-direction: column; gap: 30px; }
+            .baby-card { width: 100%; height: auto; aspect-ratio: 3/4; margin: 0 auto; }
+            
+            /* General Layout */
+            .masonry { column-count: 1; } /* Single column gallery on phone */
             .faq-sec { padding: 80px 5%; }
+            .journey-sec { padding: 80px 5%; }
+            
+            /* Footer */
+            .f-massive { margin-bottom: 60px; }
+            .f-links { gap: 40px; text-align: center; }
+            .f-col h4 { display: inline-block; width: auto; }
+            .f-col a:hover { transform: translateX(0) scale(1.05); }
+
+            /* Marquee */
+            .r-card { width: 300px; padding: 30px; }
         }
     </style>
 </head>
@@ -175,7 +245,7 @@
             <h1 class="hero-title" data-aos="fade-up">Capturing the <span class="gold-text">Poetry</span><br>of Your Life</h1>
             <div style="display:flex; gap:20px; justify-content:center; flex-wrap:wrap;" data-aos="fade-up" data-aos-delay="300">
                 <a href="#contact" class="nav-btn" style="background:var(--gold-solid); color:#000;">Reserve Your Date</a>
-                <a href="https://youtube.com/@thedewdropproject" target="_blank" class="nav-btn">Watch Films</a>
+                <a href="#films" class="nav-btn">Watch Films</a>
             </div>
         </div>
     </section>
@@ -185,7 +255,7 @@
         <div class="dir-img-box" data-aos="fade-right"><img src="https://lh3.googleusercontent.com/d/1J7EXKR1QWTnHJPk-ofpRSmpupxu2FKf0"></div>
         <div class="dir-content" data-aos="fade-left">
             <h4 class="gold-text">Visual Storyteller</h4>
-            <h2 style="font-size:2.8rem; margin-bottom:20px;">Inushi Singh</h2>
+            <h2 style="font-size:clamp(2rem, 5vw, 2.8rem); margin-bottom:20px;">Inushi Singh</h2>
             <p class="serif">"Legacy is not what you leave for people. It's what you leave in people." <br> Creating visual heirlooms for those who value art over documentation.</p>
             <a href="https://instagram.com/inushisingh" target="_blank" class="srv-click" style="display:inline-block; margin-top:30px;">VIEW INUSHI'S INSTAGRAM ➝</a>
         </div>
@@ -195,7 +265,7 @@
     <section id="services">
         <div style="text-align:center; padding:100px 0; background:#030303;">
             <h4 class="gold-text">ESTHÉTIQUE</h4>
-            <h2 style="font-size:3.5rem;">The Collection</h2>
+            <h2 style="font-size:clamp(2.5rem, 6vw, 3.5rem);">The Collection</h2>
         </div>
 
         <!-- 01 Cinema -->
@@ -312,17 +382,17 @@
         </div>
     </section>
 
-    <!-- BABY SECTION -->
+    <!-- BABY SECTION (FIXED FOR MOBILE) -->
     <section class="baby-sec" style="padding:150px 8%; background:#050505; text-align:center;">
         <h4 class="gold-text">CUDDLES BY DEWDROP</h4>
-        <h2 style="font-size:3rem; margin-top:10px;">The Little Wonders</h2>
+        <h2 style="font-size:clamp(2rem, 6vw, 3rem); margin-top:10px;">The Little Wonders</h2>
         <p class="serif" style="max-width:800px; margin:20px auto 60px; font-style:italic; color:#666;">
             A specialized boutique division for Kids, Newborn, and Maternity portraits. Blending safety with high-end luxury aesthetics.
         </p>
-        <div style="display:flex; gap:20px; justify-content:center; flex-wrap:wrap;">
-            <div class="dir-img-box" style="width:280px; height:380px;"><img src="https://lh3.googleusercontent.com/d/1LAMF5ZyhCofj8be4FWbqcqOQlfFZ8rIR" style="height:100%; object-fit:cover;"></div>
-            <div class="dir-img-box" style="width:280px; height:380px;"><img src="https://lh3.googleusercontent.com/d/1SDStwBjvFau1URGGrXtZD0plKm5r4J3B" style="height:100%; object-fit:cover;"></div>
-            <div class="dir-img-box" style="width:280px; height:380px;"><img src="https://lh3.googleusercontent.com/d/1_hZZLkUlnZVw0hoxwYBjfLA_5hT7E9gv" style="height:100%; object-fit:cover;"></div>
+        <div class="baby-grid">
+            <div class="baby-card"><img src="https://lh3.googleusercontent.com/d/1LAMF5ZyhCofj8be4FWbqcqOQlfFZ8rIR"></div>
+            <div class="baby-card"><img src="https://lh3.googleusercontent.com/d/1SDStwBjvFau1URGGrXtZD0plKm5r4J3B"></div>
+            <div class="baby-card"><img src="https://lh3.googleusercontent.com/d/1_hZZLkUlnZVw0hoxwYBjfLA_5hT7E9gv"></div>
         </div>
         <a href="https://instagram.com/cuddles.thedewdropproject" target="_blank" class="nav-btn" style="margin-top:60px; display:inline-block;">VISIT CUDDLES INSTAGRAM ➝</a>
     </section>
@@ -341,26 +411,38 @@
         </div>
     </section>
 
-    <!-- YOUTUBE FILMS -->
+    <!-- YOUTUBE FILMS (UPDATED FOR AUTO-PAUSE & TEASER) -->
     <section class="yt-sec" id="films">
         <h2 style="font-size:3rem;" class="gold-text">Cinematic Legacy</h2>
         <div class="yt-grid">
             <div class="yt-item">
-                <div class="yt-wrap"><iframe src="https://www.youtube.com/embed/b3Gt0OAfb9A"></iframe></div>
+                <div class="yt-wrap">
+                    <!-- Added enablejsapi=1 -->
+                    <iframe id="ytplayer1" src="https://www.youtube.com/embed/b3Gt0OAfb9A?enablejsapi=1" allow="autoplay; encrypted-media"></iframe>
+                </div>
                 <h4 class="cinzel">Shivangi & Ashwani</h4>
                 <p class="serif" style="font-size:1rem; color:#555;">Raffles Udaipur | Proposal</p>
             </div>
             <div class="yt-item">
-                <div class="yt-wrap"><iframe src="https://www.youtube.com/embed/p6eKeoHamgk"></iframe></div>
+                <div class="yt-wrap">
+                    <iframe id="ytplayer2" src="https://www.youtube.com/embed/p6eKeoHamgk?enablejsapi=1" allow="autoplay; encrypted-media"></iframe>
+                </div>
                 <h4 class="cinzel">Shubhii & Satyam</h4>
                 <p class="serif" style="font-size:1rem; color:#555;">Goa | Pre-Wedding</p>
             </div>
             <div class="yt-item">
-                <div class="yt-wrap"><iframe src="https://www.youtube.com/embed/VmUj0Ib5u_8"></iframe></div>
+                <div class="yt-wrap">
+                    <iframe id="ytplayer3" src="https://www.youtube.com/embed/VmUj0Ib5u_8?enablejsapi=1" allow="autoplay; encrypted-media"></iframe>
+                </div>
                 <h4 class="cinzel">Nehamt & Kunal</h4>
                 <p class="serif" style="font-size:1rem; color:#555;">Wedding Teaser</p>
             </div>
         </div>
+        
+        <!-- NEW TEASER CTA -->
+        <a href="https://youtube.com/@thedewdropproject" target="_blank" class="yt-cta-btn">
+            WATCH MORE ON YOUTUBE <i class="fab fa-youtube"></i>
+        </a>
     </section>
 
     <!-- THE JOURNEY (STEPS) -->
@@ -400,7 +482,6 @@
 
     <!-- GALLERY (75+ PHOTOS) -->
     <div class="masonry" id="gallery">
-        <!-- Using original image links -->
         <div class="g-item"><img src="https://lh3.googleusercontent.com/d/1yB6zCqj125gfBSZsOjUnsUalqYaH6Rk6"></div>
         <div class="g-item"><img src="https://lh3.googleusercontent.com/d/1dIbVqure3tQIY9SLLjVd6JSvaJGa0s2M"></div>
         <div class="g-item"><img src="https://lh3.googleusercontent.com/d/1_2Zs5sNMdKyrz4DKOVXQO9ixnkwglCFd"></div>
@@ -526,10 +607,16 @@
 
     <!-- SCRIPTS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script> 
     <script>
         AOS.init({ duration: 1200, once: true });
-        window.onload = () => { setTimeout(() => { document.body.classList.add('loaded'); }, 2500); };
+        
+        // --- 1. INTRO / LOADER TIMING (MAX 2 SECONDS) ---
+        window.onload = () => { 
+            setTimeout(() => { document.body.classList.add('loaded'); }, 2000); 
+        };
 
+        // Hero Background Slideshow
         let sIndex = 0;
         const slides = document.querySelectorAll('.hero-bg');
         setInterval(() => {
@@ -550,6 +637,34 @@
             const n = document.getElementById('clientName').value;
             const d = document.getElementById('clientDetails').value;
             window.open(`https://wa.me/917827690345?text=Inquiry from: ${n}%0ADetails: ${d}`, '_blank');
+        }
+
+        // --- 6. YOUTUBE AUTO PAUSE LOGIC ---
+        let players = [];
+        // YouTube API Ready function
+        function onYouTubeIframeAPIReady() {
+            // IDs correspond to the HTML iframe IDs
+            const videoIds = ['ytplayer1', 'ytplayer2', 'ytplayer3'];
+            videoIds.forEach(id => {
+                const player = new YT.Player(id, {
+                    events: {
+                        'onStateChange': onPlayerStateChange
+                    }
+                });
+                players.push(player);
+            });
+        }
+
+        function onPlayerStateChange(event) {
+            // If a video starts playing (state=1)
+            if (event.data == YT.PlayerState.PLAYING) {
+                // Pause all other videos
+                players.forEach(player => {
+                    if (player !== event.target) {
+                        player.pauseVideo();
+                    }
+                });
+            }
         }
     </script>
 </body>
