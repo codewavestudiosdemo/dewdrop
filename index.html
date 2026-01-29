@@ -211,12 +211,147 @@
         }
         .faq-item.active .faq-a { max-height: 300px; padding-top: 25px; }
 
-        /* --- FOOTER --- */
-        footer { background: #000; padding: 100px 8% 60px; border-top: 1px solid #111; text-align: center; }
-        .f-massive { font-family: var(--font-royal); font-size: clamp(3rem, 16vw, 12rem); color: #0a0a0a; line-height: 1; font-weight: 900; margin-bottom: 80px; width: 100%; }
-        .f-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 60px; text-align: left; border-top: 1px solid #111; padding-top: 80px; }
-        .f-col h4 { color: var(--gold-solid); font-size: 0.8rem; margin-bottom: 30px; border-bottom: 1px solid rgba(197,160,89,0.1); padding-bottom: 10px; display: inline-block; }
-        .f-col a { font-family: var(--font-serif); color: #555; display: block; margin-bottom: 15px; font-size: 1.1rem; }
+        /* --- PREMIUM FOOTER CSS --- */
+footer {
+    position: relative;
+    background: #020202;
+    padding: 100px 5% 40px;
+    border-top: 1px solid #1a1a1a;
+    overflow: hidden;
+    text-align: center;
+}
+
+/* The Massive Watermark Behind */
+.footer-watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-royal);
+    font-size: 18vw;
+    color: #080808;
+    z-index: 0;
+    pointer-events: none;
+    white-space: nowrap;
+    opacity: 0.6;
+}
+
+.footer-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 50px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.f-brand {
+    text-align: left;
+    flex: 1;
+    min-width: 300px;
+}
+
+.f-brand h2 {
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 20px;
+    letter-spacing: 5px;
+}
+
+.f-brand p {
+    font-family: var(--font-serif);
+    color: #888;
+    line-height: 1.6;
+    max-width: 400px;
+}
+
+.f-socials {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+/* Luxury Social Icons */
+.social-icon {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #333;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold-solid);
+    font-size: 1.2rem;
+    transition: all 0.4s ease;
+}
+
+.social-icon:hover {
+    border-color: var(--gold-solid);
+    box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
+    transform: translateY(-5px);
+    background: rgba(197, 160, 89, 0.1);
+}
+
+.f-links-group {
+    text-align: left;
+    flex: 0 0 200px;
+}
+
+.f-title {
+    font-family: var(--font-royal);
+    color: var(--gold-solid);
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+    display: inline-block;
+    border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+    padding-bottom: 10px;
+}
+
+.f-links-group a {
+    display: block;
+    color: #666;
+    margin-bottom: 12px;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.f-links-group a:hover {
+    color: #fff;
+    transform: translateX(10px);
+}
+
+.footer-bottom {
+    margin-top: 80px;
+    padding-top: 30px;
+    border-top: 1px solid #111;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.copy-text {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    color: #444;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+    .footer-content { flex-direction: column; text-align: center; }
+    .f-brand { text-align: center; width: 100%; }
+    .f-brand p { margin: 0 auto; }
+    .f-socials { justify-content: center; }
+    .f-links-group { width: 100%; text-align: center; }
+    .footer-bottom { flex-direction: column; gap: 15px; }
+}
 
         /* ========================================= */
         /* === MOBILE OPTIMIZATION === */
@@ -307,23 +442,25 @@
         <div class="lux-btn nav-small" onclick="document.getElementById('contact').scrollIntoView()">INQUIRE</div>
     </nav>
 
-    <!-- HERO -->
-    <section class="hero">
-        <div class="hero-bg active" style="background-image: url('https://drive.google.com/uc?export=view&id=1Yw4dU5iEX5eJz7lgope0mlLo6DOI484n');"></div>
+    <!-- HERO (FIXED IMAGES) -->
+<section class="hero">
+    <!-- Image 1: Royal Wedding/Palace Vibe -->
+    <div class="hero-bg active" style="background-image: url('https://images.unsplash.com/photo-1587271407850-8d43891882c7?q=80&w=2070&auto=format&fit=crop');"></div>
+    
+    <!-- Image 2: Cinematic Black & White -->
+    <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1511285560982-1356c11d4606?q=80&w=2076&auto=format&fit=crop');"></div>
+    
+    <!-- Image 3: Traditional Detail/Jewelry -->
+    <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1596207798369-c6e75924b172?q=80&w=2070&auto=format&fit=crop');"></div>
 
-<div class="hero-bg" style="background-image: url('https://drive.google.com/uc?export=view&id=1aEOUYlb7htbQFCf09iQe9Y-6r_n1fmdB');"></div>
-
-<div class="hero-bg" style="background-image: url('https://drive.google.com/uc?export=view&id=1fctKIY9SEezE7k-vk0f9tkcW8o69OjiD');"></div>
-
-
-        <div class="hero-content">
-            <h1 class="hero-title" data-aos="fade-up">Capturing the <span class="gold-text">Poetry</span><br>of Your Life</h1>
-            <div class="hero-btns" data-aos="fade-up" data-aos-delay="300">
-                <a href="#contact" class="lux-btn">Reserve Your Date</a>
-                <a href="#films" class="lux-btn">Watch Films</a>
-            </div>
+    <div class="hero-content">
+        <h1 class="hero-title" data-aos="fade-up">Capturing the <span class="gold-text">Poetry</span><br>of Your Life</h1>
+        <div class="hero-btns" data-aos="fade-up" data-aos-delay="300">
+            <a href="#contact" class="lux-btn">Reserve Your Date</a>
+            <a href="#films" class="lux-btn">Watch Films</a>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- DIRECTOR -->
     <section class="director-sec">
@@ -567,38 +704,58 @@
         </form>
     </section>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="f-massive">DEWDROP</div>
-        <div class="f-links">
-            <div class="f-col">
-                <h4>QUICK LINKS</h4>
-                <a href="#">Portfolio</a>
-                <a href="#films">Watch Films</a>
-                <a href="#services">Collection</a>
-                <a href="#contact">Inquire</a>
-            </div>
-            <div class="f-col">
-                <h4>STUDIOS</h4>
-                <a href="#">New Delhi / Jaipur</a>
-                <a href="#">New York / Chicago</a>
-                <a href="#">Washington DC</a>
-                <a href="#">Los Angeles</a>
-            </div>
-            <div class="f-col">
-                <h4>FOLLOW ART</h4>
-                <a href="https://instagram.com/thedewdropproject" target="_blank">Instagram Main</a>
-                <a href="https://instagram.com/cuddles.thedewdropproject" target="_blank">Cuddles IG</a>
-                <a href="https://youtube.com/@thedewdropproject" target="_blank">YouTube</a>
-            </div>
-            <div class="f-col">
-                <h4>CONTACT</h4>
-                <a href="tel:+917827690345">+91 78276 90345</a>
-                <a href="mailto:thedewdropproject@gmail.com">thedewdropproject@gmail.com</a>
+    <!-- BEAUTIFUL PREMIUM FOOTER -->
+<footer>
+    <div class="footer-watermark">DEWDROP</div>
+    
+    <div class="footer-content">
+        <!-- Brand Column -->
+        <div class="f-brand">
+            <h2 class="cinzel">TDP</h2>
+            <p class="serif">We craft visual heirlooms for the modern romantics. Based in India, available worldwide for those who value art over documentation.</p>
+            
+            <!-- Clickable Premium Logos -->
+            <div class="f-socials">
+                <a href="https://instagram.com/thedewdropproject" target="_blank" class="social-icon" title="Main Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://youtube.com/@thedewdropproject" target="_blank" class="social-icon" title="YouTube Channel">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://wa.me/917827690345" target="_blank" class="social-icon" title="WhatsApp Us">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="mailto:thedewdropproject@gmail.com" class="social-icon" title="Email Us">
+                    <i class="far fa-envelope"></i>
+                </a>
             </div>
         </div>
-        <div style="margin-top:100px; font-size:0.6rem; color:#222; letter-spacing:5px;">© 2026 THE DEWDROP PROJECT | ULTRA-LUXURY VISUAL ARTS</div>
-    </footer>
+
+        <!-- Links Column 1 -->
+        <div class="f-links-group">
+            <div class="f-title">DISCOVER</div>
+            <a href="#services">The Collections</a>
+            <a href="#films">Cinema Films</a>
+            <a href="#gallery">Visual Gallery</a>
+            <a href="https://instagram.com/cuddles.thedewdropproject" target="_blank">Cuddles (Baby)</a>
+        </div>
+
+        <!-- Links Column 2 -->
+        <div class="f-links-group">
+            <div class="f-title">STUDIOS</div>
+            <a href="#">New Delhi, India</a>
+            <a href="#">Mumbai, India</a>
+            <a href="#">Dubai, UAE</a>
+            <a href="#">London, UK</a>
+        </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom">
+        <div class="copy-text">© 2026 The Dewdrop Project. All Rights Reserved.</div>
+        <div class="copy-text">Designed for Luxury</div>
+    </div>
+</footer>
 
     <!-- SCRIPTS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
