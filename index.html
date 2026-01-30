@@ -116,25 +116,25 @@
         nav { position: fixed; top: 0; width: 100%; padding: 40px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 999; mix-blend-mode: difference; }
         .logo { font-family: var(--font-royal); font-weight: 700; font-size: 1.8rem; letter-spacing: 6px; color: #fff; }
 
-        /* --- HERO --- */
-        .hero { height: 100vh; width: 100%; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #000; }
-        .hero-bg { 
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-size: cover; background-position: center; 
-            opacity: 0; transition: opacity 2s ease-in-out, transform 8s linear; 
-            transform: scale(1.1); 
-            z-index: 0;
-            filter: brightness(0.65); 
-        }
-        .hero-bg.active { opacity: 1; transform: scale(1); z-index: 1; }
-        .hero-content { position: relative; z-index: 10; text-align: center; padding: 0 20px; width: 100%; }
-        .hero-title { 
-            font-family: var(--font-serif); font-size: clamp(3.5rem, 13vw, 8rem); 
-            line-height: 1; margin-bottom: 50px; font-style: italic; 
-            text-shadow: 0 10px 30px rgba(0,0,0,0.8); 
-        }
-        .hero-btns { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+        <!-- HERO -->
+    <section class="hero">
+        <!-- 
+           FIX: Changed "drive.google.com/uc?export=view..." 
+           TO "lh3.googleusercontent.com/d/..." 
+           This bypasses the virus scan warning.
+        -->
+        <div class="hero-bg active" style="background-image: url('https://lh3.googleusercontent.com/d/1Yw4dU5iEX5eJz7lgope0mlLo6DOI484n');"></div>
+        <div class="hero-bg" style="background-image: url('https://lh3.googleusercontent.com/d/1ehKao1jYCK0Cj0AqQKj28Tz6Fr-fBtuy');"></div>
+        <div class="hero-bg" style="background-image: url('https://lh3.googleusercontent.com/d/1j3BOkREMgdvuFMkJXhc6vkIM5IFTBjgR');"></div>
 
+        <div class="hero-content">
+            <h1 class="hero-title" data-aos="fade-up">Capturing the <span class="gold-text">Poetry</span><br>of Your Life</h1>
+            <div class="hero-btns" data-aos="fade-up" data-aos-delay="300">
+                <a href="https://wa.me/917827690345?text=Hello%20The%20Dewdrop%20Project..." target="_blank" class="lux-btn">Reserve Your Date</a>
+                <a href="#films" class="lux-btn">Watch Films</a>
+            </div>
+        </div>
+    </section>
         /* --- DIRECTOR --- */
         .director-sec { padding: 120px 10%; display: flex; align-items: center; justify-content: center; gap: 80px; flex-wrap: wrap; background: #080808; }
         .dir-img-box { flex: 1; max-width: 380px; border: 1px solid #1a1a1a; padding: 15px; }
