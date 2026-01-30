@@ -116,25 +116,36 @@
         nav { position: fixed; top: 0; width: 100%; padding: 40px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 999; mix-blend-mode: difference; }
         .logo { font-family: var(--font-royal); font-weight: 700; font-size: 1.8rem; letter-spacing: 6px; color: #fff; }
 
-        <!-- HERO -->
-    <section class="hero">
-        <!-- 
-           FIX: Changed "drive.google.com/uc?export=view..." 
-           TO "lh3.googleusercontent.com/d/..." 
-           This bypasses the virus scan warning.
-        -->
-        <div class="hero-bg active" style="background-image: url('https://lh3.googleusercontent.com/d/1Yw4dU5iEX5eJz7lgope0mlLo6DOI484n');"></div>
-        <div class="hero-bg" style="background-image: url('https://lh3.googleusercontent.com/d/1ehKao1jYCK0Cj0AqQKj28Tz6Fr-fBtuy');"></div>
-        <div class="hero-bg" style="background-image: url('https://lh3.googleusercontent.com/d/1j3BOkREMgdvuFMkJXhc6vkIM5IFTBjgR');"></div>
-
-        <div class="hero-content">
-            <h1 class="hero-title" data-aos="fade-up">Capturing the <span class="gold-text">Poetry</span><br>of Your Life</h1>
-            <div class="hero-btns" data-aos="fade-up" data-aos-delay="300">
-                <a href="https://wa.me/917827690345?text=Hello%20The%20Dewdrop%20Project..." target="_blank" class="lux-btn">Reserve Your Date</a>
-                <a href="#films" class="lux-btn">Watch Films</a>
-            </div>
-        </div>
-    </section>
+        /* --- HERO CSS FIX --- */
+        .hero { 
+            position: relative; 
+            height: 100vh; 
+            width: 100%; 
+            overflow: hidden; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center;
+        }
+        .hero-bg { 
+            position: absolute; 
+            inset: 0; 
+            background-size: cover; 
+            background-position: center; 
+            opacity: 0; 
+            transition: opacity 1.5s ease-in-out; 
+            z-index: 1; 
+        }
+        .hero-bg.active { opacity: 1; }
+        .hero-bg::after { 
+            content: ''; 
+            position: absolute; 
+            inset: 0; 
+            background: rgba(0,0,0,0.3); 
+        }
+        .hero-content { position: relative; z-index: 10; width: 90%; }
+        .hero-title { font-size: clamp(2.5rem, 8vw, 5.5rem); line-height: 1.1; margin-bottom: 40px; }
+        .hero-btns { display: flex; gap: 20px; justify-content: center; } 
         /* --- DIRECTOR --- */
         .director-sec { padding: 120px 10%; display: flex; align-items: center; justify-content: center; gap: 80px; flex-wrap: wrap; background: #080808; }
         .dir-img-box { flex: 1; max-width: 380px; border: 1px solid #1a1a1a; padding: 15px; }
@@ -328,21 +339,21 @@
         <div class="lux-btn nav-small" onclick="document.getElementById('contact').scrollIntoView()">INQUIRE</div>
     </nav>
 
-    <!-- HERO -->
+    <!-- HERO (FIXED LINKS) -->
     <section class="hero">
-         <div class="hero-bg active" style="background-image: url('https://drive.google.com/uc?export=view&id=1Yw4dU5iEX5eJz7lgope0mlLo6DOI484n');"></div>
-    <div class="hero-bg" style="background-image: url('https://drive.google.com/uc?export=view&id=1ehKao1jYCK0Cj0AqQKj28Tz6Fr-fBtuy');"></div>
-    <div class="hero-bg" style="background-image: url('https://drive.google.com/uc?export=view&id=1j3BOkREMgdvuFMkJXhc6vkIM5IFTBjgR');"></div>
+        <div class="hero-bg active" style="background-image: url('https://lh3.googleusercontent.com/d/1Yw4dU5iEX5eJz7lgope0mlLo6DOI484n');"></div>
+        <div class="hero-bg" style="background-image: url('https://lh3.googleusercontent.com/d/1ehKao1jYCK0Cj0AqQKj28Tz6Fr-fBtuy');"></div>
+        <div class="hero-bg" style="background-image: url('https://lh3.googleusercontent.com/d/1j3BOkREMgdvuFMkJXhc6vkIM5IFTBjgR');"></div>
 
         <div class="hero-content">
             <h1 class="hero-title" data-aos="fade-up">Capturing the <span class="gold-text">Poetry</span><br>of Your Life</h1>
             <div class="hero-btns" data-aos="fade-up" data-aos-delay="300">
-                <!-- PROFESSIONAL WHATSAPP MESSAGE -->
-                <a href="https://wa.me/917827690345?text=Hello%20The%20Dewdrop%20Project%2C%0A%0AI%20am%20contacting%20you%20to%20formally%20inquire%20about%20reserving%20a%20date%20for%20my%20upcoming%20luxury%20wedding%2Fevent.%0A%0AKindly%20share%20your%20availability%20and%20exclusive%20packages." target="_blank" class="lux-btn">Reserve Your Date</a>
+                <a href="https://wa.me/917827690345?text=Hello%20The%20Dewdrop%20Project..." target="_blank" class="lux-btn">Reserve Your Date</a>
                 <a href="#films" class="lux-btn">Watch Films</a>
             </div>
         </div>
     </section>
+
 
     <!-- DIRECTOR -->
     <section class="director-sec">
