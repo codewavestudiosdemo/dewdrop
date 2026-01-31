@@ -143,8 +143,13 @@
             inset: 0; 
             background: rgba(0,0,0,0.3); 
         }
-        .hero-content { position: relative; z-index: 10; width: 90%; }
-        .hero-title { font-size: clamp(2.5rem, 8vw, 5.5rem); line-height: 1.1; margin-bottom: 40px; }
+        .hero-content { position: relative; z-index: 10; width: 100%; max-width: 1200px; padding: 0 20px; }
+.hero-title { 
+    font-size: clamp(2.2rem, 7.5vw, 5.2rem); 
+    line-height: 1.3; /* Line height badhane se 'g' niche se nahi katega */
+    margin-bottom: 40px; 
+    word-wrap: break-word; 
+}
         .hero-btns { display: flex; gap: 20px; justify-content: center; } 
         /* --- DIRECTOR --- */
         .director-sec { padding: 120px 10%; display: flex; align-items: center; justify-content: center; gap: 80px; flex-wrap: wrap; background: #080808; }
@@ -251,7 +256,12 @@
             .logo { font-size: 1.4rem; letter-spacing: 3px; }
             .lux-btn.nav-small { padding: 8px 15px; font-size: 0.6rem; letter-spacing: 1px; }
 
-            .hero-title { margin-bottom: 20px; font-size: 3.8rem; }
+           .hero-title { 
+    margin-bottom: 20px; 
+    font-size: clamp(2rem, 11vw, 3.2rem); /* Font thoda chota kiya taaki screen se bahar na jaye */
+    line-height: 1.2;
+    padding: 0 10px;
+}
             .hero-btns { gap: 15px; flex-direction: column; width: 80%; margin: 30px auto 0; }
             .hero-btns .lux-btn { width: 100%; text-align: center; }
 
